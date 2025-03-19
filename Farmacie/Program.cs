@@ -121,8 +121,8 @@ namespace FirmaFarmacie
             Console.WriteLine("Introduceti stocul medicamentului: ");
             int stoc = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Este necesara reteta? (true/false): ");
-            bool retetaNecesara = bool.Parse(Console.ReadLine());
+            Console.WriteLine("Este necesara reteta? (Da/Nu): ");
+            string retetaNecesara = Console.ReadLine();
 
             Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara);
             return medicament;
@@ -140,7 +140,7 @@ namespace FirmaFarmacie
                                                   medicament.Producator,
                                                   medicament.Pret,
                                                   medicament.Stoc,
-                                                  medicament.RetetaNecesara ? "Da" : "Nu");
+                                                  medicament.RetetaNecesara);
 
             Console.WriteLine(infoMedicament);
         }
