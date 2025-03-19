@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using LibrarieModele;
 using NivelStocareDate;
 
@@ -8,9 +9,9 @@ namespace FirmaFarmacie
     {
         static void Main()
         {
-            // Create memory-based storage for Medicaments
-            GestionareMedicamente_Memorie gestiuneMedicamente = new GestionareMedicamente_Memorie();
-
+            // Get the file name from the configuration settings
+            string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
+            GestionareMedicamente_FisierText gestiuneFisier = new GestionareMedicamente_FisierText(numeFisier);
             Medicament medicamentNou = new Medicament();
             int nrMedicamente = 0;
 
@@ -19,9 +20,9 @@ namespace FirmaFarmacie
             {
                 Console.WriteLine("C. Citire informatii medicament de la tastatura");
                 Console.WriteLine("I. Afisarea informatiilor despre ultimul medicament introdus");
-                Console.WriteLine("A. Afisare medicamente");
-                Console.WriteLine("S. Salvare medicament in memorie");
-                Console.WriteLine("F. Cautare medicament dupa denumire");
+                Console.WriteLine("A. Afisare medicamente din fisier");
+                Console.WriteLine("S. Salvare medicament in fisier");
+                Console.WriteLine("F. Cautare medicament ");
                 Console.WriteLine("X. Inchidere program");
 
                 Console.WriteLine("Alegeti o optiune:");
@@ -38,27 +39,59 @@ namespace FirmaFarmacie
                         break;
 
                     case "A":
-                        Medicament[] medicamente = gestiuneMedicamente.GetMedicamente(out nrMedicamente);
+                        Medicament[] medicamente = gestiuneFisier.GetMedicamente(out nrMedicamente);
                         AfisareMedicamente(medicamente, nrMedicamente);
                         break;
 
                     case "S":
-                        gestiuneMedicamente.AddMedicament(medicamentNou);
+                        gestiuneFisier.AddMedicament(medicamentNou);
                         break;
 
                     case "F":
-                        Console.WriteLine("Introduceti denumirea medicamentului cautat:");
-                        string denumireCautata = Console.ReadLine();
-                        Medicament medicamentCautat = CautareMedicamentDupaDenumire(gestiuneMedicamente, denumireCautata);
-                        if (medicamentCautat != null)
+                        string optiuneCautare;
+                        do
                         {
-                            Console.WriteLine("Medicamentul a fost gasit:");
-                            AfisareMedicament(medicamentCautat);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Medicamentul cu denumirea {denumireCautata} nu a fost gasit.");
-                        }
+                            Console.WriteLine("Cautare dupa: ");
+                            Console.WriteLine("1. Denumire medicament");
+                            Console.WriteLine("2. Producator");
+                            optiuneCautare = Console.ReadLine();
+                            switch (optiuneCautare)
+                            {
+                                case "1":
+                                    Console.WriteLine("Introduceti denumirea medicamentului cautat: ");
+                                    string denumire = Console.ReadLine();
+                                    Medicament medicamentCautatDenumire = gestiuneFisier.CautareDupaDenumire(denumire);
+                                    if (medicamentCautatDenumire != null)
+                                    {
+                                        Console.WriteLine("Medicamentul a fost gasit: ");
+                                        AfisareMedicament(medicamentCautatDenumire);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Medicamentul cu denumirea {denumire} nu a fost gasit.\n");
+                                    }
+                                    break;
+
+                                case "2":
+                                    Console.WriteLine("Introduceti producatorul cautat: ");
+                                    string producator = Console.ReadLine();
+                                    Medicament medicamentCautatProducator = gestiuneFisier.CautareDupaProducator(producator);
+                                    if (medicamentCautatProducator != null)
+                                    {
+                                        Console.WriteLine("Medicamentul a fost gasit: ");
+                                        AfisareMedicament(medicamentCautatProducator);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Medicamentul cu producatorul {producator} nu a fost gasit.\n");
+                                    }
+                                    break;
+
+                                default:
+                                    Console.WriteLine("Optiune invalida");
+                                    break;
+                            }
+                        } while (optiuneCautare != "1" && optiuneCautare != "2");
                         break;
 
                     case "X":
@@ -73,6 +106,7 @@ namespace FirmaFarmacie
             Console.ReadKey();
         }
 
+        // Function to read a new Medicament from keyboard input
         public static Medicament CitireMedicamentTastatura()
         {
             Console.WriteLine("Introduceti denumirea medicamentului: ");
@@ -94,6 +128,7 @@ namespace FirmaFarmacie
             return medicament;
         }
 
+        // Function to display a single Medicament's information
         public static void AfisareMedicament(Medicament medicament)
         {
             string infoMedicament = string.Format("\nMedicamentul '{0}' are următoarele detalii:\n"
@@ -110,6 +145,7 @@ namespace FirmaFarmacie
             Console.WriteLine(infoMedicament);
         }
 
+        // Function to display all Medicaments
         public static void AfisareMedicamente(Medicament[] medicamente, int nrMedicamente)
         {
             Console.WriteLine("Medicamentele disponibile sunt:");
@@ -117,20 +153,6 @@ namespace FirmaFarmacie
             {
                 AfisareMedicament(medicamente[i]);
             }
-        }
-
-        public static Medicament CautareMedicamentDupaDenumire(GestionareMedicamente_Memorie gestiune, string denumire)
-        {
-            int nrMedicamente;
-            Medicament[] medicamente = gestiune.GetMedicamente(out nrMedicamente);
-            foreach (var medicament in medicamente)
-            {
-                if (medicament != null && medicament.Denumire.Equals(denumire, StringComparison.OrdinalIgnoreCase))
-                {
-                    return medicament;
-                }
-            }
-            return null;  // Return null if no medicament found
         }
     }
 }
