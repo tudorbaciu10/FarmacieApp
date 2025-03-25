@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Configuration;
+using System.Security.Principal;
 using LibrarieModele;
 using NivelStocareDate;
 
+//Clasa principala
 namespace FirmaFarmacie
 {
+    //Declarația clasei principale a aplicației.
     class Program
     {
+        //Metoda principală a programului, punctul de intrare al aplicației.
         static void Main()
         {
-            // Get the file name from the configuration settings
+            // Inițializarea variabilelor și obiectelor
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
             GestionareMedicamente_FisierText gestiuneFisier = new GestionareMedicamente_FisierText(numeFisier);
             Medicament medicamentNou = new Medicament();
             int nrMedicamente = 0;
 
+            //Meniul pricipal
             string optiune;
             do
             {
@@ -71,7 +76,7 @@ namespace FirmaFarmacie
                                         Console.WriteLine($"Medicamentul cu denumirea {denumire} nu a fost gasit.\n");
                                     }
                                     break;
-
+                                    //Căutare după producător
                                 case "2":
                                     Console.WriteLine("Introduceti producatorul cautat: ");
                                     string producator = Console.ReadLine();
@@ -86,7 +91,7 @@ namespace FirmaFarmacie
                                         Console.WriteLine($"Medicamentul cu producatorul {producator} nu a fost gasit.\n");
                                     }
                                     break;
-
+                                    //Gestionarea opțiunilor invalide
                                 default:
                                     Console.WriteLine("Optiune invalida");
                                     break;
@@ -106,7 +111,7 @@ namespace FirmaFarmacie
             Console.ReadKey();
         }
 
-        // Function to read a new Medicament from keyboard input
+        // Funcția pentru citirea unui medicament
         public static Medicament CitireMedicamentTastatura()
         {
             Console.WriteLine("Introduceti denumirea medicamentului: ");
@@ -116,34 +121,62 @@ namespace FirmaFarmacie
             string producator = Console.ReadLine();
 
             Console.WriteLine("Introduceti pretul medicamentului: ");
-            double pret = double.Parse(Console.ReadLine());
+            double pret;
+            while (!double.TryParse(Console.ReadLine(), out pret))
+            {
+                Console.WriteLine("Valoare incorecta! Introduceti un număr valid pentru preț:");
+            }
 
             Console.WriteLine("Introduceti stocul medicamentului: ");
-            int stoc = int.Parse(Console.ReadLine());
+            int stoc;
+            while (!int.TryParse(Console.ReadLine(), out stoc))
+            {
+                Console.WriteLine("Valoare incorecta! Introduceti un număr valid pentru stoc:");
+            }
 
             Console.WriteLine("Este necesara reteta? (Da/Nu): ");
             string retetaNecesara = Console.ReadLine();
 
-            Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara);
+            Console.WriteLine("\nAlegeti categoria medicamentului:");
+            Console.WriteLine("1 - Analgezic");
+            Console.WriteLine("2 - Antibiotic");
+            Console.WriteLine("3 - Antiinflamator");
+            Console.WriteLine("4 - Vitamine");
+            Console.WriteLine("5 - Antialergic");
+            Console.Write("Optiunea dvs: ");
+
+            int optiuneCategorie;
+            while (!int.TryParse(Console.ReadLine(), out optiuneCategorie) || optiuneCategorie < 1 || optiuneCategorie > 5)
+            {
+                Console.WriteLine("Optiune invalida! Alegeti un numar intre 1 si 5.");
+            }
+
+            CategorieMedicament categorie = (CategorieMedicament)optiuneCategorie; // Convertim alegerea în enum
+
+            Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie);
             return medicament;
         }
 
-        // Function to display a single Medicament's information
+
+        // Funcția pentru afișarea unui medicament
         public static void AfisareMedicament(Medicament medicament)
         {
             string infoMedicament = string.Format("\nMedicamentul '{0}' are următoarele detalii:\n"
                                                   + "Producător: {1}\n"
                                                   + "Preț: {2} RON\n"
                                                   + "Stoc: {3}\n"
-                                                  + "Rețetă necesară: {4}\n",
+                                                  + "Rețetă necesară: {4}\n"
+                                                  + "Categorie: {5}\n",
                                                   medicament.Denumire,
                                                   medicament.Producator,
                                                   medicament.Pret,
                                                   medicament.Stoc,
-                                                  medicament.RetetaNecesara);
+                                                  medicament.RetetaNecesara,
+                                                  medicament.Categorie);
 
             Console.WriteLine(infoMedicament);
         }
+
 
         // Function to display all Medicaments
         public static void AfisareMedicamente(Medicament[] medicamente, int nrMedicamente)

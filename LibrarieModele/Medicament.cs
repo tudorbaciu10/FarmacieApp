@@ -1,5 +1,13 @@
 ﻿using System;
 
+public enum CategorieMedicament
+{
+    Analgezic = 1,
+    Antibiotic = 2,
+    Antiinflamator = 3,
+    Vitamine = 4,
+    Antialergic = 5
+}
 public class Medicament
 {
     private const char SEPARATOR_PRINCIPAL_FISIER = ';';
@@ -38,11 +46,13 @@ public class Medicament
         RetetaNecesara = date[RETETA_NECESARA];
     }
 
+    //Metodă pentru afișarea informațiilor
     public string Info()
     {
         return $"{Denumire} {Producator} {Pret} {Stoc} {RetetaNecesara}";
     }
 
+    //Metodă pentru conversie la format fișier.Creează un string formatat pentru salvarea medicamentului într-un fișier.
     public string ConversieLaSir_PentruFisier()
     {
         return $"{Denumire}{SEPARATOR_PRINCIPAL_FISIER}{Producator}{SEPARATOR_PRINCIPAL_FISIER}{Pret}{SEPARATOR_PRINCIPAL_FISIER}{Stoc}{SEPARATOR_PRINCIPAL_FISIER}{RetetaNecesara}";

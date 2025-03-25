@@ -28,6 +28,7 @@ namespace LibrarieModele
             CodFiscal = codFiscal;
         }
 
+        //Metodă pentru afișarea informațiilor.Returnează un string formatat cu datele producătorului.
         public string Info()
         {
             return $"Nume: {Nume}, Țara de origine: {TaraOrigine}, Cod fiscal: {CodFiscal}";
