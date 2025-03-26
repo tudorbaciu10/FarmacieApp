@@ -151,11 +151,28 @@ namespace FirmaFarmacie
                 Console.WriteLine("Optiune invalida! Alegeti un numar intre 1 si 5.");
             }
 
-            CategorieMedicament categorie = (CategorieMedicament)optiuneCategorie; // Convertim alegerea în enum
+            CategorieMedicament categorie = (CategorieMedicament)optiuneCategorie;
 
-            Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie);
+            Console.WriteLine("\nAlegeti optiunile medicamentului (separate prin virgulă, ex: 1,3):");
+            Console.WriteLine("1 - Compensat");
+            Console.WriteLine("2 - Necesita Reteta");
+            Console.WriteLine("3 - Refrigerat");
+
+            string[] optiuniSelectate = Console.ReadLine().Split(',');
+            OptiuniMedicament optiuni = OptiuniMedicament.Niciuna;
+
+            foreach (string opt in optiuniSelectate)
+            {
+                if (int.TryParse(opt.Trim(), out int valoareOptiune))
+                {
+                    optiuni |= (OptiuniMedicament)valoareOptiune;
+                }
+            }
+
+            Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie, optiuni);
             return medicament;
         }
+
 
 
         // Funcția pentru afișarea unui medicament
