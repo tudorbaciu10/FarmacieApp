@@ -11,7 +11,7 @@ namespace LibrarieModele
         Antialergic = 5
     }
 
-    
+    [Flags]
     public enum OptiuniMedicament
     {
         Niciuna = 0,

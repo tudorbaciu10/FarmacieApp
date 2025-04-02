@@ -76,7 +76,7 @@ namespace FirmaFarmacie
                                         Console.WriteLine($"Medicamentul cu denumirea {denumire} nu a fost gasit.\n");
                                     }
                                     break;
-                                    //Căutare după producător
+                                //Căutare după producător
                                 case "2":
                                     Console.WriteLine("Introduceti producatorul cautat: ");
                                     string producator = Console.ReadLine();
@@ -91,7 +91,7 @@ namespace FirmaFarmacie
                                         Console.WriteLine($"Medicamentul cu producatorul {producator} nu a fost gasit.\n");
                                     }
                                     break;
-                                    //Gestionarea opțiunilor invalide
+                                //Gestionarea opțiunilor invalide
                                 default:
                                     Console.WriteLine("Optiune invalida");
                                     break;
@@ -172,6 +172,7 @@ namespace FirmaFarmacie
             Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie, optiuni);
             return medicament;
         }
+
 
 
 
