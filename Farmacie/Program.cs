@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Security.Principal;
 using LibrarieModele;
 using NivelStocareDate;
@@ -13,12 +14,16 @@ namespace FirmaFarmacie
         //Metoda principală a programului, punctul de intrare al aplicației.
         static void Main()
         {
-            // Inițializarea variabilelor și obiectelor
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
-            GestionareMedicamente_FisierText gestiuneFisier = new GestionareMedicamente_FisierText(numeFisier);
-            Medicament medicamentNou = new Medicament();
+            string locatieFisierSolutie = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            string caleCompletaFisier = locatieFisierSolutie + "\\" + numeFisier;
+
+
+            GestionareMedicamente_FisierText gestiuneFisier = new GestionareMedicamente_FisierText(caleCompletaFisier);
             int nrMedicamente = 0;
 
+            Medicament medicamentNou = new Medicament();
+            //Medicament[] medicamente = adminMedicamente.GetMedicamente(out nrMedicamente);
             //Meniul pricipal
             string optiune;
             do

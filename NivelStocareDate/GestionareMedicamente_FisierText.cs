@@ -40,6 +40,7 @@ namespace NivelStocareDate
                     medicamente[nrMedicamente++] = new Medicament(linieFisier);
                 }
             }
+            Array.Resize(ref medicamente, nrMedicamente);
             return medicamente;
         }
 
