@@ -1,6 +1,6 @@
 ﻿namespace Farmacie_WindowsForms_UI
 {
-    partial class Form1
+    partial class FormaCautare
     {
         /// <summary>
         /// Required designer variable.
@@ -28,60 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAdaugare = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
+            this.txtDenumire = new System.Windows.Forms.TextBox();
+            this.lblDenumire = new System.Windows.Forms.Label();
             this.btnCautare = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnAdaugare
+            // txtDenumire
             // 
-            this.btnAdaugare.Location = new System.Drawing.Point(73, 70);
-            this.btnAdaugare.Name = "btnAdaugare";
-            this.btnAdaugare.Size = new System.Drawing.Size(75, 23);
-            this.btnAdaugare.TabIndex = 0;
-            this.btnAdaugare.Text = "Adauga";
-            this.btnAdaugare.UseVisualStyleBackColor = true;
-            this.btnAdaugare.Click += new System.EventHandler(this.btnAdaugare_Click);
+            this.txtDenumire.Location = new System.Drawing.Point(194, 58);
+            this.txtDenumire.Name = "txtDenumire";
+            this.txtDenumire.Size = new System.Drawing.Size(100, 22);
+            this.txtDenumire.TabIndex = 9;
             // 
-            // btnRefresh
+            // lblDenumire
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(73, 123);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 1;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.lblDenumire.AutoSize = true;
+            this.lblDenumire.Location = new System.Drawing.Point(47, 61);
+            this.lblDenumire.Name = "lblDenumire";
+            this.lblDenumire.Size = new System.Drawing.Size(65, 16);
+            this.lblDenumire.TabIndex = 8;
+            this.lblDenumire.Text = "Denumire";
             // 
             // btnCautare
             // 
-            this.btnCautare.Location = new System.Drawing.Point(73, 178);
+            this.btnCautare.Location = new System.Drawing.Point(194, 117);
             this.btnCautare.Name = "btnCautare";
-            this.btnCautare.Size = new System.Drawing.Size(75, 23);
-            this.btnCautare.TabIndex = 2;
+            this.btnCautare.Size = new System.Drawing.Size(100, 23);
+            this.btnCautare.TabIndex = 10;
             this.btnCautare.Text = "Cautare";
             this.btnCautare.UseVisualStyleBackColor = true;
             this.btnCautare.Click += new System.EventHandler(this.btnCautare_Click);
             // 
-            // Form1
+            // FormaCautare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnCautare);
-            this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.btnAdaugare);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.txtDenumire);
+            this.Controls.Add(this.lblDenumire);
+            this.Name = "FormaCautare";
+            this.Text = "FormaCautare";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnAdaugare;
-        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.TextBox txtDenumire;
+        private System.Windows.Forms.Label lblDenumire;
         private System.Windows.Forms.Button btnCautare;
     }
 }
-
