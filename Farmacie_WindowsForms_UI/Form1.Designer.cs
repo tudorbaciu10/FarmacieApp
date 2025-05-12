@@ -31,6 +31,8 @@
             this.btnAdaugare = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnCautare = new System.Windows.Forms.Button();
+            this.dataGridMedicamente = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMedicamente)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdaugare
@@ -63,16 +65,28 @@
             this.btnCautare.UseVisualStyleBackColor = true;
             this.btnCautare.Click += new System.EventHandler(this.btnCautare_Click);
             // 
+            // dataGridMedicamente
+            // 
+            this.dataGridMedicamente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridMedicamente.Location = new System.Drawing.Point(183, 70);
+            this.dataGridMedicamente.Name = "dataGridMedicamente";
+            this.dataGridMedicamente.RowHeadersWidth = 51;
+            this.dataGridMedicamente.RowTemplate.Height = 24;
+            this.dataGridMedicamente.Size = new System.Drawing.Size(1209, 274);
+            this.dataGridMedicamente.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1418, 450);
+            this.Controls.Add(this.dataGridMedicamente);
             this.Controls.Add(this.btnCautare);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnAdaugare);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMedicamente)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -82,6 +96,7 @@
         private System.Windows.Forms.Button btnAdaugare;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnCautare;
+        private System.Windows.Forms.DataGridView dataGridMedicamente;
     }
 }
 

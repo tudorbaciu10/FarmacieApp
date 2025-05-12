@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using LibrarieModele;
 using NivelStocareDate;
@@ -46,14 +47,14 @@ namespace Farmacie_WindowsForms_UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            AfiseazaMedicamente();
+            //AfiseazaMedicamente();
         }
 
         
 
         
 
-        private void AfiseazaMedicamente()
+        private void AfiseazaMedicamente1()
         {
             Medicament[] medicamente = adminMedicamente.GetMedicamente(out int nrMedicamente);
 
@@ -135,5 +136,14 @@ namespace Farmacie_WindowsForms_UI
             FormaCautare formaCautare = new FormaCautare();
             formaCautare.ShowDialog();
         }
+
+        public void AfiseazaMedicamente()
+        {
+            Medicament[] medicamente = adminMedicamente.GetMedicamente(out int nrMedicamente);
+            dataGridMedicamente.DataSource = null;
+
+            dataGridMedicamente.DataSource = medicamente;
+        }
     }
+
 }
