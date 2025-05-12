@@ -1,6 +1,7 @@
 ﻿using LibrarieModele;
 using NivelStocareDate;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -16,9 +17,11 @@ namespace Farmacie_WindowsForms_UI
 {
     public partial class FormaAdaugare: Form
     {
-        private GestionareMedicamente_FisierText adminMedicamente;
 
-        
+        private GestionareMedicamente_FisierText adminMedicamente;
+        ArrayList optiuniSelectate = new ArrayList();
+
+
         private const int NR_MAX_CARACTERE = 15;
         public FormaAdaugare()
         {
@@ -42,10 +45,13 @@ namespace Farmacie_WindowsForms_UI
                 double pret = double.Parse(txtPret.Text);
                 int stoc = int.Parse(txtStoc.Text);
                 string retetaNecesara = txtRetetaNecesara.Text;
-                CategorieMedicament categorie = (CategorieMedicament)Enum.Parse(typeof(CategorieMedicament), txtCategorie.Text);
-                OptiuniMedicament optiuni = (OptiuniMedicament)Enum.Parse(typeof(OptiuniMedicament), txtOptiuni.Text);
 
-                Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie, optiuni);
+                CategorieMedicament categorie = GetCategorieSelectat();
+
+                ArrayList Optiuni = new ArrayList();
+                Optiuni.AddRange(optiuniSelectate);
+
+                Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie, Optiuni);
                 adminMedicamente.AddMedicament(medicament);
 
                 MessageBox.Show("Medicamentul a fost adaugat cu succes!");
@@ -96,17 +102,9 @@ namespace Farmacie_WindowsForms_UI
                 hasErrors = true;
             }
 
-            if (string.IsNullOrWhiteSpace(txtCategorie.Text))
-            {
-                lbleroareCategorie.Text = "Nu poate fi gol!";
-                hasErrors = true;
-            }
+            
 
-            if (string.IsNullOrWhiteSpace(txtOptiuni.Text))
-            {
-                lbleroareOptiuni.Text = "Nu poate fi gol!";
-                hasErrors = true;
-            }
+            
 
             return hasErrors;
         }
@@ -141,6 +139,34 @@ namespace Farmacie_WindowsForms_UI
 
             return hasErrors;
         }
+        private void CkbOptiuni_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBoxControl = sender as CheckBox;
+
+            string optiuneSelectata = checkBoxControl.Text;
+
+            if (checkBoxControl.Checked)
+                optiuniSelectate.Add(optiuneSelectata);
+            else
+                optiuniSelectate.Remove(optiuneSelectata);
+        }
+
+        private CategorieMedicament GetCategorieSelectat()
+        {
+            if (rdbAnalgezic.Checked)
+                return CategorieMedicament.Analgezic;
+            else if (rdbAntialergic.Checked)
+                return CategorieMedicament.Antialergic;
+            else if (rdbAntibiotic.Checked)
+                return CategorieMedicament.Antibiotic;
+            else if (rdbAntiinflamator.Checked)
+                return CategorieMedicament.Antiinflamator;
+            else if (rdbVitamine.Checked)
+                return CategorieMedicament.Vitamine;
+            else
+                return CategorieMedicament.Analgezic; 
+        }
+
     }
 }
 

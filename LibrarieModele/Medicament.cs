@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 
 namespace LibrarieModele
 {
     public class Medicament
     {
         private const char SEPARATOR_PRINCIPAL_FISIER = ';';
+        private const char SEPARATOR_SECUNDAR_FISIER = ',';
         private const int DENUMIRE = 0;
         private const int PRODUCATOR = 1;
         private const int PRET = 2;
@@ -19,13 +21,24 @@ namespace LibrarieModele
         public int Stoc { get; set; }
         public string RetetaNecesara { get; set; }
         public CategorieMedicament Categorie { get; set; }
-        public OptiuniMedicament Optiuni { get; set; }
+        public ArrayList Optiuni { get; set; }
+
+        public string OptiuniAsString
+        {
+            get
+            {
+                return string.Join(SEPARATOR_SECUNDAR_FISIER.ToString(), Optiuni.ToArray());
+            }
+        }
 
         // Constructor fără parametri
-        public Medicament() { }
+        public Medicament()
+        {
+            Optiuni = new ArrayList();
+        }
 
         // Constructor cu parametri
-        public Medicament(string denumire, string producator, double pret, int stoc, string retetaNecesara, CategorieMedicament categorie, OptiuniMedicament optiuni)
+        public Medicament(string denumire, string producator, double pret, int stoc, string retetaNecesara, CategorieMedicament categorie, ArrayList optiuni)
         {
             Denumire = denumire;
             Producator = producator;
@@ -33,7 +46,7 @@ namespace LibrarieModele
             Stoc = stoc;
             RetetaNecesara = retetaNecesara;
             Categorie = categorie;
-            Optiuni = optiuni;
+            Optiuni = optiuni ?? new ArrayList();
         }
 
         // Constructor pentru citirea din fișier
@@ -46,12 +59,14 @@ namespace LibrarieModele
             Stoc = Convert.ToInt32(date[STOC]);
             RetetaNecesara = date[RETETA_NECESARA];
             Categorie = (CategorieMedicament)Enum.Parse(typeof(CategorieMedicament), date[CATEGORIE]);
-            Optiuni = (OptiuniMedicament)Enum.Parse(typeof(OptiuniMedicament), date[OPTIUNI]);
+            Optiuni = new ArrayList();
+            if (!string.IsNullOrWhiteSpace(date[OPTIUNI]))
+                Optiuni.AddRange(date[OPTIUNI].Split(SEPARATOR_SECUNDAR_FISIER));
         }
 
         public string Info()
         {
-            return $"{Denumire} {Producator} {Pret} RON {Stoc} buc. Reteta: {RetetaNecesara} Categorie: {Categorie} Optiuni: {Optiuni}";
+            return $"{Denumire} {Producator} {Pret} RON {Stoc} buc. Reteta: {RetetaNecesara} Categorie: {Categorie} Optiuni: {OptiuniAsString}";
         }
 
         public string ConversieLaSir_PentruFisier()
@@ -62,7 +77,7 @@ namespace LibrarieModele
                    $"{Stoc}{SEPARATOR_PRINCIPAL_FISIER}" +
                    $"{RetetaNecesara}{SEPARATOR_PRINCIPAL_FISIER}" +
                    $"{Categorie}{SEPARATOR_PRINCIPAL_FISIER}" +
-                   $"{Optiuni}";
+                   $"{OptiuniAsString}";
         }
     }
 }

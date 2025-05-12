@@ -67,12 +67,13 @@
             // 
             // dataGridMedicamente
             // 
+            this.dataGridMedicamente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridMedicamente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridMedicamente.Location = new System.Drawing.Point(183, 70);
+            this.dataGridMedicamente.Location = new System.Drawing.Point(207, 70);
             this.dataGridMedicamente.Name = "dataGridMedicamente";
             this.dataGridMedicamente.RowHeadersWidth = 51;
             this.dataGridMedicamente.RowTemplate.Height = 24;
-            this.dataGridMedicamente.Size = new System.Drawing.Size(1209, 274);
+            this.dataGridMedicamente.Size = new System.Drawing.Size(674, 274);
             this.dataGridMedicamente.TabIndex = 3;
             // 
             // Form1
