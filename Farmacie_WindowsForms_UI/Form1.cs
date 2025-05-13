@@ -144,6 +144,18 @@ namespace Farmacie_WindowsForms_UI
 
             dataGridMedicamente.DataSource = medicamente;
         }
+
+        private void btnMod_Click(object sender, EventArgs e)
+        {
+            if (dataGridMedicamente.CurrentRow == null)
+            {
+                MessageBox.Show("Selectati o linie pentru a modifica.");
+                return;
+            }
+
+            gpbOpt form5 = new gpbOpt(Convert.ToString(dataGridMedicamente.CurrentRow.Cells[0].Value));
+            form5.ShowDialog();
+        }
     }
 
 }

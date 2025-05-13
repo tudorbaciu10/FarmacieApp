@@ -91,5 +91,25 @@ namespace NivelStocareDate
 
             return null;
         }
+        public bool UpdateMedicament(Medicament medicamentActual)
+        {
+            Medicament[] medicamente = GetMedicamente(out int nrMedicamente);
+            bool actualizareCuSucces = false;
+
+            using (StreamWriter streamWriter = new StreamWriter(numeFisier, false))
+            {
+                for (int i = 0; i < nrMedicamente; i++)
+                {
+                    Medicament medicamentPentruScriereInFisier = medicamente[i];
+                    if (medicamente[i].Denumire == medicamentActual.Denumire)
+                    {
+                        medicamentPentruScriereInFisier = medicamentActual;
+                    }
+                    streamWriter.WriteLine(medicamentPentruScriereInFisier.ConversieLaSir_PentruFisier());
+                }
+                actualizareCuSucces = true;
+            }
+            return actualizareCuSucces;
+        }
     }
 }

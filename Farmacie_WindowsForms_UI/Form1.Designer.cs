@@ -32,6 +32,7 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnCautare = new System.Windows.Forms.Button();
             this.dataGridMedicamente = new System.Windows.Forms.DataGridView();
+            this.btnMod = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMedicamente)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,14 +74,26 @@
             this.dataGridMedicamente.Name = "dataGridMedicamente";
             this.dataGridMedicamente.RowHeadersWidth = 51;
             this.dataGridMedicamente.RowTemplate.Height = 24;
+            this.dataGridMedicamente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridMedicamente.Size = new System.Drawing.Size(674, 274);
             this.dataGridMedicamente.TabIndex = 3;
+            // 
+            // btnMod
+            // 
+            this.btnMod.Location = new System.Drawing.Point(73, 235);
+            this.btnMod.Name = "btnMod";
+            this.btnMod.Size = new System.Drawing.Size(75, 23);
+            this.btnMod.TabIndex = 4;
+            this.btnMod.Text = "Modifica";
+            this.btnMod.UseVisualStyleBackColor = true;
+            this.btnMod.Click += new System.EventHandler(this.btnMod_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1418, 450);
+            this.Controls.Add(this.btnMod);
             this.Controls.Add(this.dataGridMedicamente);
             this.Controls.Add(this.btnCautare);
             this.Controls.Add(this.btnRefresh);
@@ -98,6 +111,7 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnCautare;
         private System.Windows.Forms.DataGridView dataGridMedicamente;
+        private System.Windows.Forms.Button btnMod;
     }
 }
 

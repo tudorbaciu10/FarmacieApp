@@ -1,9 +1,12 @@
-1;1;1;1;1;Antibiotic;NecesitaReteta
+1;tudor;1;1;1;Antiinflamator;Refrigerat,Compensat,NecesitaReteta
 dgd; vcc;3;4;Da;Antibiotic;Compensat, NecesitaReteta
-1;1;1;1;1;Analgezic;Compensat
-tudorbaciu;Moldova;200;2;1;Analgezic;Compensat
-1;1;1;1;11;Analgezic;Niciuna Refrigerat
-1;1;1;1;1;Analgezic;Niciuna NecesitaReteta Refrigerat
-1;1;1;1;1;Analgezic;Compensat,Refrigerat
-1;1;11;11;1;Analgezic;Niciuna,NecesitaReteta
+1;tudor;1;1;1;Antiinflamator;Refrigerat,Compensat,NecesitaReteta
+tudorbaciu;Basarabia;200;2;1;Antibiotic;Compensat,Niciuna,NecesitaReteta
+1;tudor;1;1;1;Antiinflamator;Refrigerat,Compensat,NecesitaReteta
+1;tudor;1;1;1;Antiinflamator;Refrigerat,Compensat,NecesitaReteta
+1;tudor;1;1;1;Antiinflamator;Refrigerat,Compensat,NecesitaReteta
+1;tudor;1;1;1;Antiinflamator;Refrigerat,Compensat,NecesitaReteta
 2;2;22;2;2;Vitamine;Niciuna
+1;tudor;1;1;1;Antiinflamator;Refrigerat,Compensat,NecesitaReteta
+1;tudor;1;1;1;Antiinflamator;Refrigerat,Compensat,NecesitaReteta
+prigojin; usv;3;4;Da;Analgezic;Compensat,Niciuna
