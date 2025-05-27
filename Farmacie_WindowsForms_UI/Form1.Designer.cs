@@ -33,6 +33,7 @@
             this.btnCautare = new System.Windows.Forms.Button();
             this.dataGridMedicamente = new System.Windows.Forms.DataGridView();
             this.btnMod = new System.Windows.Forms.Button();
+            this.btnSterge = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMedicamente)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,12 +71,12 @@
             // 
             this.dataGridMedicamente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridMedicamente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridMedicamente.Location = new System.Drawing.Point(207, 70);
+            this.dataGridMedicamente.Location = new System.Drawing.Point(198, 70);
             this.dataGridMedicamente.Name = "dataGridMedicamente";
             this.dataGridMedicamente.RowHeadersWidth = 51;
             this.dataGridMedicamente.RowTemplate.Height = 24;
             this.dataGridMedicamente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridMedicamente.Size = new System.Drawing.Size(674, 274);
+            this.dataGridMedicamente.Size = new System.Drawing.Size(1020, 274);
             this.dataGridMedicamente.TabIndex = 3;
             // 
             // btnMod
@@ -88,11 +89,22 @@
             this.btnMod.UseVisualStyleBackColor = true;
             this.btnMod.Click += new System.EventHandler(this.btnMod_Click);
             // 
+            // btnSterge
+            // 
+            this.btnSterge.Location = new System.Drawing.Point(73, 287);
+            this.btnSterge.Name = "btnSterge";
+            this.btnSterge.Size = new System.Drawing.Size(75, 23);
+            this.btnSterge.TabIndex = 5;
+            this.btnSterge.Text = "Sterge";
+            this.btnSterge.UseVisualStyleBackColor = true;
+            this.btnSterge.Click += new System.EventHandler(this.btnSterge_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1418, 450);
+            this.ClientSize = new System.Drawing.Size(1418, 385);
+            this.Controls.Add(this.btnSterge);
             this.Controls.Add(this.btnMod);
             this.Controls.Add(this.dataGridMedicamente);
             this.Controls.Add(this.btnCautare);
@@ -112,6 +124,7 @@
         private System.Windows.Forms.Button btnCautare;
         private System.Windows.Forms.DataGridView dataGridMedicamente;
         private System.Windows.Forms.Button btnMod;
+        private System.Windows.Forms.Button btnSterge;
     }
 }
 

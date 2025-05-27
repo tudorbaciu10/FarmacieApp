@@ -35,15 +35,15 @@
             // 
             // txtDenumire
             // 
-            this.txtDenumire.Location = new System.Drawing.Point(194, 58);
+            this.txtDenumire.Location = new System.Drawing.Point(65, 77);
             this.txtDenumire.Name = "txtDenumire";
-            this.txtDenumire.Size = new System.Drawing.Size(100, 22);
+            this.txtDenumire.Size = new System.Drawing.Size(413, 22);
             this.txtDenumire.TabIndex = 9;
             // 
             // lblDenumire
             // 
             this.lblDenumire.AutoSize = true;
-            this.lblDenumire.Location = new System.Drawing.Point(47, 61);
+            this.lblDenumire.Location = new System.Drawing.Point(240, 34);
             this.lblDenumire.Name = "lblDenumire";
             this.lblDenumire.Size = new System.Drawing.Size(65, 16);
             this.lblDenumire.TabIndex = 8;
@@ -51,9 +51,9 @@
             // 
             // btnCautare
             // 
-            this.btnCautare.Location = new System.Drawing.Point(194, 117);
+            this.btnCautare.Location = new System.Drawing.Point(65, 140);
             this.btnCautare.Name = "btnCautare";
-            this.btnCautare.Size = new System.Drawing.Size(100, 23);
+            this.btnCautare.Size = new System.Drawing.Size(413, 23);
             this.btnCautare.TabIndex = 10;
             this.btnCautare.Text = "Cautare";
             this.btnCautare.UseVisualStyleBackColor = true;
@@ -63,7 +63,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(537, 221);
             this.Controls.Add(this.btnCautare);
             this.Controls.Add(this.txtDenumire);
             this.Controls.Add(this.lblDenumire);

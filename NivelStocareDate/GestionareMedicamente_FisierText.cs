@@ -80,7 +80,7 @@ namespace NivelStocareDate
                 // Citește fiecare linie din fișier
                 while ((linieFisier = streamReader.ReadLine()) != null)
                 {
-                    // Creează un obiect de tip Colet pe baza liniei citite
+                    // Creează un obiect de tip medicament pe baza liniei citite
                     Medicament medicament = new Medicament(linieFisier);
 
                     // Verifică dacă ID-ul comenzii corespunde
@@ -91,25 +91,79 @@ namespace NivelStocareDate
 
             return null;
         }
-        public bool UpdateMedicament(Medicament medicamentActual)
+        public bool UpdateMedicament(Medicament medicamentActual, string denumireOriginala)
         {
             Medicament[] medicamente = GetMedicamente(out int nrMedicamente);
             bool actualizareCuSucces = false;
+
+            // Găsim indexul medicamentului care trebuie actualizat
+            int indexMedicament = -1;
+            for (int i = 0; i < nrMedicamente; i++)
+            {
+                if (medicamente[i].Denumire == denumireOriginala)
+                {
+                    indexMedicament = i;
+                    break;
+                }
+            }
+
+            if (indexMedicament != -1)
+            {
+                using (StreamWriter streamWriter = new StreamWriter(numeFisier, false))
+                {
+                    for (int i = 0; i < nrMedicamente; i++)
+                    {
+                        if (i == indexMedicament)
+                        {
+                            streamWriter.WriteLine(medicamentActual.ConversieLaSir_PentruFisier());
+                        }
+                        else
+                        {
+                            streamWriter.WriteLine(medicamente[i].ConversieLaSir_PentruFisier());
+                        }
+                    }
+                    actualizareCuSucces = true;
+                }
+            }
+            return actualizareCuSucces;
+        }
+
+        public Medicament[] CautareToateDupaDenumire(string denumire)
+        {
+            Medicament[] medicamente = GetMedicamente(out int nrMedicamente);
+            List<Medicament> medicamenteGasite = new List<Medicament>();
+
+            foreach (var medicament in medicamente)
+            {
+                if (medicament != null && medicament.Denumire == denumire)
+                {
+                    medicamenteGasite.Add(medicament);
+                }
+            }
+
+            return medicamenteGasite.ToArray();
+        }
+
+        public bool StergeMedicament(string denumire)
+        {
+            Medicament[] medicamente = GetMedicamente(out int nrMedicamente);
+            bool stersCuSucces = false;
 
             using (StreamWriter streamWriter = new StreamWriter(numeFisier, false))
             {
                 for (int i = 0; i < nrMedicamente; i++)
                 {
-                    Medicament medicamentPentruScriereInFisier = medicamente[i];
-                    if (medicamente[i].Denumire == medicamentActual.Denumire)
+                    if (medicamente[i].Denumire != denumire)
                     {
-                        medicamentPentruScriereInFisier = medicamentActual;
+                        streamWriter.WriteLine(medicamente[i].ConversieLaSir_PentruFisier());
                     }
-                    streamWriter.WriteLine(medicamentPentruScriereInFisier.ConversieLaSir_PentruFisier());
+                    else
+                    {
+                        stersCuSucces = true;
+                    }
                 }
-                actualizareCuSucces = true;
             }
-            return actualizareCuSucces;
+            return stersCuSucces;
         }
     }
 }

@@ -154,7 +154,32 @@ namespace Farmacie_WindowsForms_UI
             }
 
             gpbOpt form5 = new gpbOpt(Convert.ToString(dataGridMedicamente.CurrentRow.Cells[0].Value));
-            form5.ShowDialog();
+            if (form5.ShowDialog() == DialogResult.OK)
+            {
+                AfiseazaMedicamente(); // Actualizare automată după modificare
+            }
+        }
+
+        private void btnSterge_Click(object sender, EventArgs e)
+        {
+            if (dataGridMedicamente.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selectați cel puțin un rând pentru ștergere.");
+                return;
+            }
+
+            var result = MessageBox.Show("Sigur doriți să ștergeți rândurile selectate?", "Confirmare ștergere",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                foreach (DataGridViewRow row in dataGridMedicamente.SelectedRows)
+                {
+                    string denumire = row.Cells["Denumire"].Value.ToString();
+                    adminMedicamente.StergeMedicament(denumire);
+                }
+                AfiseazaMedicamente(); // Reîmprospătează grid-ul după ștergere
+            }
         }
     }
 

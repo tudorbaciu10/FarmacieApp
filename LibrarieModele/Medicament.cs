@@ -21,24 +21,24 @@ namespace LibrarieModele
         public int Stoc { get; set; }
         public string RetetaNecesara { get; set; }
         public CategorieMedicament Categorie { get; set; }
-        public ArrayList Optiuni { get; set; }
+        public OptiuniMedicament Optiuni { get; set; }
 
         public string OptiuniAsString
         {
             get
             {
-                return string.Join(SEPARATOR_SECUNDAR_FISIER.ToString(), Optiuni.ToArray());
+                return Optiuni.ToString();
             }
         }
 
         // Constructor fără parametri
         public Medicament()
         {
-            Optiuni = new ArrayList();
+            Optiuni = OptiuniMedicament.Niciuna;
         }
 
         // Constructor cu parametri
-        public Medicament(string denumire, string producator, double pret, int stoc, string retetaNecesara, CategorieMedicament categorie, ArrayList optiuni)
+        public Medicament(string denumire, string producator, double pret, int stoc, string retetaNecesara, CategorieMedicament categorie, OptiuniMedicament optiuni)
         {
             Denumire = denumire;
             Producator = producator;
@@ -46,7 +46,7 @@ namespace LibrarieModele
             Stoc = stoc;
             RetetaNecesara = retetaNecesara;
             Categorie = categorie;
-            Optiuni = optiuni ?? new ArrayList();
+            Optiuni = optiuni;
         }
 
         // Constructor pentru citirea din fișier
@@ -59,9 +59,23 @@ namespace LibrarieModele
             Stoc = Convert.ToInt32(date[STOC]);
             RetetaNecesara = date[RETETA_NECESARA];
             Categorie = (CategorieMedicament)Enum.Parse(typeof(CategorieMedicament), date[CATEGORIE]);
-            Optiuni = new ArrayList();
+            
             if (!string.IsNullOrWhiteSpace(date[OPTIUNI]))
-                Optiuni.AddRange(date[OPTIUNI].Split(SEPARATOR_SECUNDAR_FISIER));
+            {
+                string[] optiuniStrings = date[OPTIUNI].Split(SEPARATOR_SECUNDAR_FISIER);
+                Optiuni = OptiuniMedicament.Niciuna;
+                foreach (string opt in optiuniStrings)
+                {
+                    if (Enum.TryParse(opt.Trim(), out OptiuniMedicament optiune))
+                    {
+                        Optiuni |= optiune;
+                    }
+                }
+            }
+            else
+            {
+                Optiuni = OptiuniMedicament.Niciuna;
+            }
         }
 
         public string Info()

@@ -18,8 +18,8 @@ namespace Farmacie_WindowsForms_UI
     public partial class gpbOpt: Form
     {
         private GestionareMedicamente_FisierText adminMedicamente;
-        ArrayList optiuniSelectate = new ArrayList();
-
+        private OptiuniMedicament optiuniSelectate = OptiuniMedicament.Niciuna;
+        private string denumireOriginala;
 
         private const int NR_MAX_CARACTERE = 15;
         public gpbOpt(string denumire)
@@ -30,10 +30,10 @@ namespace Farmacie_WindowsForms_UI
             string caleCompletaFisier = locatieFisierSolutie + "\\" + numeFisier;
 
             adminMedicamente = new GestionareMedicamente_FisierText(caleCompletaFisier);
+            denumireOriginala = denumire;
             txtDenumire.Text = denumire.ToString();
 
             SetareControle();
-
         }
 
         private void SetareControle()
@@ -71,27 +71,29 @@ namespace Farmacie_WindowsForms_UI
                     if (opt is CheckBox)
                     {
                         var optiune = opt as CheckBox;
-                        foreach (String dis in medicament.Optiuni)
-                            if (optiune.Text == dis)
-                            {
-                                optiune.Checked = true;
-                            }
+                        if (Enum.TryParse(optiune.Text, out OptiuniMedicament optiuneEnum))
+                        {
+                            optiune.Checked = (medicament.Optiuni & optiuneEnum) == optiuneEnum;
+                        }
                     }
-
                 }
             }
         }
+
         private void CkbOptiuni_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBoxControl = sender as CheckBox;
-
             string optiuneSelectata = checkBoxControl.Text;
 
-            if (checkBoxControl.Checked)
-                optiuniSelectate.Add(optiuneSelectata);
-            else
-                optiuniSelectate.Remove(optiuneSelectata);
+            if (Enum.TryParse(optiuneSelectata, out OptiuniMedicament optiune))
+            {
+                if (checkBoxControl.Checked)
+                    optiuniSelectate |= optiune;
+                else
+                    optiuniSelectate &= ~optiune;
+            }
         }
+
         private CategorieMedicament GetCategorieSelectat()
         {
             if (rdbAnalgezic.Checked)
@@ -107,6 +109,7 @@ namespace Farmacie_WindowsForms_UI
             else
                 return CategorieMedicament.Analgezic;
         }
+
         private void ResetErrors()
         {
             lbleroareDenumire.Text = "";
@@ -151,10 +154,6 @@ namespace Farmacie_WindowsForms_UI
                 lbleroareRetetaNecesara.Text = "Nu poate fi gol!";
                 hasErrors = true;
             }
-
-
-
-
 
             return hasErrors;
         }
@@ -204,13 +203,12 @@ namespace Farmacie_WindowsForms_UI
 
                 CategorieMedicament categorie = GetCategorieSelectat();
 
-                ArrayList Optiuni = new ArrayList();
-                Optiuni.AddRange(optiuniSelectate);
-
-                Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie, Optiuni);
-                adminMedicamente.UpdateMedicament(medicament);
+                Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie, optiuniSelectate);
+                adminMedicamente.UpdateMedicament(medicament, denumireOriginala);
 
                 MessageBox.Show("Medicamentul a fost modificat cu succes!!!");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
     }

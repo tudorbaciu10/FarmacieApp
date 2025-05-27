@@ -17,10 +17,8 @@ namespace Farmacie_WindowsForms_UI
 {
     public partial class FormaAdaugare: Form
     {
-
         private GestionareMedicamente_FisierText adminMedicamente;
-        ArrayList optiuniSelectate = new ArrayList();
-
+        private OptiuniMedicament optiuniSelectate = OptiuniMedicament.Niciuna;
 
         private const int NR_MAX_CARACTERE = 15;
         public FormaAdaugare()
@@ -48,15 +46,13 @@ namespace Farmacie_WindowsForms_UI
 
                 CategorieMedicament categorie = GetCategorieSelectat();
 
-                ArrayList Optiuni = new ArrayList();
-                Optiuni.AddRange(optiuniSelectate);
-
-                Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie, Optiuni);
+                Medicament medicament = new Medicament(denumire, producator, pret, stoc, retetaNecesara, categorie, optiuniSelectate);
                 adminMedicamente.AddMedicament(medicament);
 
                 MessageBox.Show("Medicamentul a fost adaugat cu succes!");
             }
         }
+
         private void ResetErrors()
         {
             lbleroareDenumire.Text = "";
@@ -102,10 +98,6 @@ namespace Farmacie_WindowsForms_UI
                 hasErrors = true;
             }
 
-            
-
-            
-
             return hasErrors;
         }
 
@@ -139,16 +131,19 @@ namespace Farmacie_WindowsForms_UI
 
             return hasErrors;
         }
+
         private void CkbOptiuni_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBoxControl = sender as CheckBox;
-
             string optiuneSelectata = checkBoxControl.Text;
 
-            if (checkBoxControl.Checked)
-                optiuniSelectate.Add(optiuneSelectata);
-            else
-                optiuniSelectate.Remove(optiuneSelectata);
+            if (Enum.TryParse(optiuneSelectata, out OptiuniMedicament optiune))
+            {
+                if (checkBoxControl.Checked)
+                    optiuniSelectate |= optiune;
+                else
+                    optiuniSelectate &= ~optiune;
+            }
         }
 
         private CategorieMedicament GetCategorieSelectat()
@@ -166,7 +161,6 @@ namespace Farmacie_WindowsForms_UI
             else
                 return CategorieMedicament.Analgezic; 
         }
-
     }
 }
 

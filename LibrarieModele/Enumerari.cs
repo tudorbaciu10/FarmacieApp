@@ -10,4 +10,13 @@ namespace LibrarieModele
         Vitamine = 4,
         Antialergic = 5
     }
+
+    [Flags]
+    public enum OptiuniMedicament
+    {
+        Niciuna = 0,
+        Compensat = 1,
+        NecesitaReteta = 2,
+        Refrigerat = 4
+    }
 }

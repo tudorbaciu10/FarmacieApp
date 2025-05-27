@@ -20,6 +20,7 @@ namespace Farmacie_WindowsForms_UI
         private GestionareMedicamente_FisierText adminMedicamente;
         public FormaCautare()
         {
+            this.MinimizeBox = false;
             InitializeComponent();
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
             string locatieFisierSolutie = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -33,21 +34,25 @@ namespace Farmacie_WindowsForms_UI
         {
             if (!string.IsNullOrWhiteSpace(txtDenumire.Text))
             {
-                Medicament medicamentGasit = adminMedicamente.CautareDupaDenumire(txtDenumire.Text);
+                Medicament[] medicamenteGasite = adminMedicamente.CautareToateDupaDenumire(txtDenumire.Text);
 
-                if (medicamentGasit != null)
+                if (medicamenteGasite.Length > 0)
                 {
-
-                    MessageBox.Show(medicamentGasit.Info(), "Medicament gasit");
+                    string rezultat = "Medicamente gasite:\n\n";
+                    foreach (var medicament in medicamenteGasite)
+                    {
+                        rezultat += medicament.Info() + "\n\n";
+                    }
+                    MessageBox.Show(rezultat, "Medicamente gasite");
                 }
                 else
                 {
-                    MessageBox.Show("Medicamentul cu denumirea specificata nu a fost gasit.");
+                    MessageBox.Show("Nu s-au gasit medicamente cu denumirea specificata.");
                 }
             }
             else
             {
-                MessageBox.Show("Introduceti o descriere valida.");
+                MessageBox.Show("Introduceti o denumire valida.");
             }
         }
     }
